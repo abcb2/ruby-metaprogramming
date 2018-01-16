@@ -3,7 +3,8 @@ require "minitest/autorun"
 =begin
 
   - メソッド探索
-    includeはモジュールをクラスの継承チェーンに挿入する
+    - includeはモジュールをクラスの継承チェーンに挿入する
+    - ruby2.0からはprependも追加された
 
 =end
 
@@ -20,10 +21,15 @@ class YourClass
 
 end
 
+class PrependClass
+  prepend Foo
+end
+
 class TestSample < Minitest::Test
   def setup
-    @obj0 = YourClass.new
-    @obj1 = MyClass.new
+    @obj1 = YourClass.new
+    @obj2 = MyClass.new
+    @obj3 = PrependClass.new
   end
 
   def test_ancestors_01
@@ -31,7 +37,7 @@ class TestSample < Minitest::Test
       [
         YourClass, Object, Minitest::Expectations, Kernel, BasicObject
       ],
-      @obj0.class.ancestors
+      @obj1.class.ancestors
     )
   end
 
@@ -40,8 +46,16 @@ class TestSample < Minitest::Test
       [
         MyClass, Foo, Object, Minitest::Expectations, Kernel, BasicObject
       ],
-      @obj1.class.ancestors
+      @obj2.class.ancestors
     )
   end
 
+  def test_ancestors_03
+    assert_equal(
+      [
+        Foo, PrependClass, Object, Minitest::Expectations, Kernel, BasicObject
+      ],
+      @obj3.class.ancestors
+    )
+  end
 end
