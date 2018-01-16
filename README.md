@@ -11,3 +11,14 @@ rubyの世界では全てはオブジェクト。
 
 ![2-4](./chapter02/2-4.png)
 
+ClassクラスはModuleクラスに`new, allocate, superclass`メソッドを追加したもの
+
+```
+irb(main):002:0> Class.instance_methods(false)
+=> [:new, :allocate, :superclass]
+irb(main):003:0> Module.instance_methods == (Class.instance_methods - Class.instance_methods(false))
+=> true
+```
+
+
+
