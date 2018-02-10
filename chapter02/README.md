@@ -7,6 +7,83 @@
 
 既存のコードにパッチを当てることを`モンキーパッチ`と呼ぶこともある。rubyでは副作用を生むモンキーパッチの代替として`Refinements`を用意しているが、全てを代替できるわけではない。
 
+## 2-2 オブジェクトモデルの内部
+
+*オブジェクトにインスタンス変数が含まれている*
+
+```ruby
+class MyClass
+  def my_method
+    @v = 1
+  end
+end
+
+obj1 = MyClass.new
+obj1.my_method
+puts obj1.instance_variables.count() # 1
+
+obj2 = MyClass.new
+puts obj2.instance_variables.count() # 0
+```
+
+*メソッドはオブジェクトではなくクラスに存在する*
+
+classで定義したメソッドはインスタンス化したオブジェクトで利用することができる。ゆえにメソッドはそのオブジェクトのクラスに住んでいると言える。
+
+ただし、そのクラスを`methods`でイントロスペクションしても定義したメソッドは見えない。instance_methodsでイントロスペクトすると確認できる。
+
+厳密には定義したメソッドは`インスタンスメソッド`と呼ぶ
+
+```ruby
+require "minitest/autorun"
+
+class MyClass
+  def my_method
+    puts "yes my_method"
+  end
+end
+
+class TestSample < Minitest::Test
+  def setup
+    @obj1 = MyClass.new
+    @obj2 = MyClass.new
+  end
+
+  def test_obj
+    assert_equal(MyClass, @obj1.class)
+  end
+
+  def test_2_1
+    # オブジェクトはメソッドを持っている
+    assert_equal([:my_method], @obj1.methods.grep(/my/))
+  end
+
+  def test_2_2
+    # 共通のクラスを持つオブジェクトはメソッドも共通している。
+    # つまり、メソッドはオブジェクトでなくクラスに存在する
+    assert_equal([:my_method], @obj2.methods.grep(/my/))
+  end
+
+  def test_3_1
+    # しかしMyClassはmy_methodを持っているとは言えない
+    # ゆえに「my_methodはMyClassのインスタンスメソッド」と呼ぶ
+    assert_equal([], MyClass.methods.grep(/my/))
+  end
+
+  def test_3_2
+    assert_equal(String.instance_methods, "abc".methods)
+    assert_equal(false, String.methods == "abc".methods)
+  end
+
+  def test_3_3
+    assert_equal(MyClass.instance_methods, @obj1.methods)
+    assert_equal(MyClass.instance_methods(false), [:my_method])
+  end
+
+end
+```
+
+
 ## 2-3-1
 rubyの世界では全てはオブジェクト。
 
