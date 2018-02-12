@@ -1,0 +1,17 @@
+@startuml
+
+class Object
+class Module
+class Class
+class MyClass
+object obj1
+object obj2
+
+
+MyClass <-- obj1 :class
+MyClass <-- obj2 :class
+Object <-- MyClass :superclass
+Class <-- MyClass :class
+Module <-- Class :superclass
+
+@enduml
