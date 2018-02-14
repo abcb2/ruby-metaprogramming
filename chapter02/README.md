@@ -142,6 +142,13 @@ irb(main):003:0> Module.instance_methods == (Class.instance_methods - Class.inst
   
 ### モジュールとメソッド探索
 
+`test_2-4-1.rb`と`test_2-4-1_2.rb`を参照
+
+- Moduleはinclude, prependすることができる
+- prependしたmoduleは継承チェーンがincludeより手前になる
+- 多重インクルードした場合、モジュールが既に継承チェーンに存在している場合は2回めの挿入は無視される
+- KernelはModuleでObjectにincludeされている
+- [awsome_print](https://github.com/awesome-print/awesome_print)のソースは参考になる。
 
 ## 2-4-2
 Rubyのコードはオブジェクト(カレントオブジェクト)の内部で実行される。
