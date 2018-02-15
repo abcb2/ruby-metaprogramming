@@ -1,1 +1,57 @@
 # 第3章 メソッド
+
+## シンボル
+シンボルは固定のオブジェクトIDを持ったオブジェクト
+
+ハッシュにアクセスする場合は文字列でアクセスするより早い。rubyのバージョンが上がるにつれて最適化されてきているので以前より気にする必要はなくなっているかもしれない。
+```ruby
+require "benchmark"
+
+hash_string = {
+  "foo" => "FOO",
+  "bar" => "BAR",
+}
+hash_symbol = {
+  :foo => "FOO",
+  :bar => "BAR",
+}
+
+puts "Ruby ver: " + RUBY_VERSION
+
+Benchmark.bm 10 do |r|
+  r.report "symbol" do
+    10000000.times do
+      foo = hash_symbol[:foo]
+    end
+  end
+  r.report "string" do
+    10000000.times do
+      foo = hash_string["foo"]
+    end
+  end
+end
+```
+
+結果は下記
+
+```
+$ ruby chapter03/src/symbol_bench.rb 
+Ruby ver: 1.8.7
+                user     system      total        real
+symbol      1.660000   0.000000   1.660000 (  1.659999)
+string      2.580000   0.000000   2.580000 (  2.598226)
+
+$ ruby chapter03/src/symbol_bench.rb 
+Ruby ver: 2.4.2
+                 user     system      total        real
+symbol       0.680000   0.000000   0.680000 (  0.686470)
+string       0.910000   0.000000   0.910000 (  0.914801)
+```
+
+## 3.2 動的メソッド
+
+`test_3-2.rb`を参照
+
+sendを使うとprivateメソッドも呼び出せる
+
+
