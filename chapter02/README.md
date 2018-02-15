@@ -150,12 +150,15 @@ irb(main):003:0> Module.instance_methods == (Class.instance_methods - Class.inst
 - KernelはModuleでObjectにincludeされている
 - [awsome_print](https://github.com/awesome-print/awesome_print)のソースは参考になる。
 
-## 2-4-2
+## 2-4-2 メソッドの実行
+
+`test_2-4-2.rb`を参照
+
 Rubyのコードはオブジェクト(カレントオブジェクト)の内部で実行される。
 
 カレントオブジェクトは`self`とも呼ばれる
-
-メソッドを呼び出す時はメソッドのレシーバがselfになる
+        
+メソッドを呼び出す時はメソッドのレシーバがselfになる。オブジェクトを省略すると暗黙のself呼び出しとなる。
 
 トップレベルコンテキストとはRubyのインタプリタが作った`main`と呼ばれるオブジェクトの内部にいることになる。
 
@@ -166,3 +169,11 @@ irb(main):001:0> self
 ```
 
 ### privateメソッド
+
+`test_2-4-2.rb`を参照
+
+privateメソッドは暗黙的なレシーバselfに対して呼び出す必要がある。
+
+言い換えるとprivateのついたメソッドはレシーバを指定できない。
+
+##　2.4.3 Refinements
