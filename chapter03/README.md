@@ -52,6 +52,9 @@ string       0.910000   0.000000   0.910000 (  0.914801)
 
 `test_3-2.rb`を参照
 
-sendを使うとprivateメソッドも呼び出せる
+sendを使うとprivateメソッドも呼び出せる。
 
+事故が怖い時は`public_send`を使ってprivateメソッドには送らないようにすることもできる。
+
+`Module#define_method`を使うことでMyClassの中に動的にインスタンスメソッドを定義することができる。
 

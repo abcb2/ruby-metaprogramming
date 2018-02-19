@@ -11,6 +11,12 @@ class MyClass
   end
 end
 
+class MyClass2
+  define_method :my_method do |my_arg|
+    my_arg * 3
+  end
+end
+
 class TestSample < Minitest::Test
   def setup
     @obj = MyClass.new
@@ -32,6 +38,19 @@ class TestSample < Minitest::Test
       @obj.hoge
     end
     assert_equal("hoge", @obj.send(:hoge))
+  end
+
+  def test_04
+    # publicなメソッドにのみsendしたい場合はpublic_sendを使う
+    assert_raises NoMethodError do
+      @obj.public_send(:hoge)
+    end
+    assert_equal(2, @obj.public_send(:my_method, 1))
+  end
+
+  def test_05
+    @obj = MyClass2.new
+    assert_equal(3, @obj.my_method(1))
   end
 
 end
