@@ -24,8 +24,23 @@ class Computer01
   define_component :keyboard
 end
 
+class Computer02
+  def initialize(computer_id, data_source)
+    @id = computer_id
+    @data_source = data_source
+    data_source.methods.grep(/^get_(.*)_info$/) {Computer02.define_component $1}
+  end
+
+  def self.define_component(name)
+    define_method(name) do
+      ## ....
+    end
+  end
+end
+
 class TestSample < Minitest::Test
   def setup
+
   end
 
   def test_01
