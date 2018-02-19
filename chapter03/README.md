@@ -76,4 +76,12 @@ method_missingを利用したhack方法を`ゴーストメソッド`と呼ぶ。
 
 `respond_to?`メソッドは、レシーバーとなるオブジェクトが引数に与えられたメソッドに対して応答可能であればtrueを返す。応答不可能な場合、`respond_to_missing?`関数を呼び出す。
 
-respond_to_missing?は要はghost_method?だ。
+respond_to_missing?は要はghost_method?だ。ｊ
+
+## 3.5 ブランクスレート
+
+ゴーストメソッドの名前と継承したメソッドの名前が衝突すると、継承したメソッドの方を使ってしまうので、不必要なメソッドは削除しておく。
+
+最小限のメソッドしかない状態のクラスを`ブランクスレート`と呼ぶ
+
+[Builder](https://github.com/jimweirich/builder)にBlankSlateクラスがあり、そこに詳しい。
