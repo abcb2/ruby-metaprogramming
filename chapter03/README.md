@@ -76,7 +76,9 @@ method_missingを利用したhack方法を`ゴーストメソッド`と呼ぶ。
 
 `respond_to?`メソッドは、レシーバーとなるオブジェクトが引数に与えられたメソッドに対して応答可能であればtrueを返す。応答不可能な場合、`respond_to_missing?`関数を呼び出す。
 
-respond_to_missing?は要はghost_method?だ。ｊ
+respond_to_missing?は要はghost_method?だ。
+
+ゴーストメソッドを使う時は常にsuperを呼び出す、respond_to_missing?を再定義する、というやり方に従うとある程度の危険は回避できる。
 
 ## 3.5 ブランクスレート
 
