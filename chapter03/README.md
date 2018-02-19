@@ -58,3 +58,22 @@ sendを使うとprivateメソッドも呼び出せる。
 
 `Module#define_method`を使うことでMyClassの中に動的にインスタンスメソッドを定義することができる。
 
+## 3.3 method_missing
+
+BasicObjectのprivate_methodとしてmethod_missingが存在する
+```
+[8] pry(main)> BasicObject.private_methods.grep /method_missing/
+=> [:method_missing]
+```
+
+method_missingを利用したhack方法を`ゴーストメソッド`と呼ぶ。
+
+[Hasie](https://github.com/intridea/hashie)というgemに良い実装がある。
+
+ゴーストメソッドを捕捉して他のオブジェクトに転送するような仕組みは`動的プロキシ`と呼ばれる。
+
+詳細は[Ghee](https://github.com/huboard/ghee)というGitHub APIを取り扱うgemを参照。中でhasieを利用している。
+
+`respond_to?`メソッドは、レシーバーとなるオブジェクトが引数に与えられたメソッドに対して応答可能であればtrueを返す。応答不可能な場合、`respond_to_missing?`関数を呼び出す。
+
+respond_to_missing?は要はghost_method?だ。
