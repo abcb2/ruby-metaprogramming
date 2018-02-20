@@ -26,6 +26,7 @@ class TestSample < Minitest::Test
   end
 
   def test_01
+    # 共有スコープ
     assert_equal(0, counter)
     inc 1
     assert_equal(1, counter)
