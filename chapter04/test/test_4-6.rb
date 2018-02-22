@@ -23,4 +23,17 @@ class TestSample < Minitest::Test
     end
     assert_nil(ret)
   end
+
+  def test_03
+    def monthly_sales
+      110
+    end
+
+    target_sales = 100
+
+    ret = event "月間売上が驚くほど高い" do
+      monthly_sales > target_sales
+    end
+    assert_equal("ALERT: 月間売上が驚くほど高い", ret)
+  end
 end
