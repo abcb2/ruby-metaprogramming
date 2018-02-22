@@ -12,6 +12,9 @@ lambda do
   Kernel.send :define_method, :each_events do
 
   end
+  Kernel.send :define_method, :each_setups do
+    
+  end
 end.call
 
 setup do
