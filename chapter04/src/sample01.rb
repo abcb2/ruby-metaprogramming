@@ -13,7 +13,7 @@ lambda do
 
   end
   Kernel.send :define_method, :each_setups do
-    
+
   end
 end.call
 
