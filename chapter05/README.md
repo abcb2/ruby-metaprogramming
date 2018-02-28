@@ -35,3 +35,19 @@ end
 ```
 
 ## 特異クラス
+
+特異クラスとは、あるクラスのインスタンスがその裏に特別に持つメタクラス、シングルトンクラスのこと
+
+```ruby
+class C
+end
+
+obj = C.new
+class << obj
+  def sample
+    'sample'
+  end
+end
+
+assert(obj.singleton_class.superclass == C)
+```
