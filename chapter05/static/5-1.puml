@@ -1,0 +1,16 @@
+@startuml
+
+class Object
+class C {
+ a_method()
+}
+class D
+class meta_obj
+object obj
+
+obj -ri-> meta_obj
+meta_obj -up-> D
+D -up-> C
+C -up-> Object
+
+@enduml

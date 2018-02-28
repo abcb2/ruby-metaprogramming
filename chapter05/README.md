@@ -51,3 +51,7 @@ end
 
 assert(obj.singleton_class.superclass == C)
 ```
+
+次のようなメソッド探索になる
+
+![特異クラス](./static/5-1.png)
