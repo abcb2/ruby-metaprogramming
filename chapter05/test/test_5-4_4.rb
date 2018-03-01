@@ -13,6 +13,23 @@ class D < C
 
 end
 
+class MyClass
+  def self.a_class_method2
+    "a_class_method2"
+  end
+
+  class << self
+    def a_class_method3
+      "a_class_method3"
+    end
+  end
+end
+
+def MyClass.a_class_method
+  "a_class_method"
+end
+
+
 class TestSample < Minitest::Test
   def setup
   end
@@ -24,4 +41,10 @@ class TestSample < Minitest::Test
     assert_equal("#<Class:Object>", C.singleton_class.superclass.to_s) # #<Class:Object> < #<Class:BasicObject>
   end
 
+  def test_02
+    assert_equal("a_class_method", MyClass.a_class_method)
+    assert_equal("a_class_method2", MyClass.a_class_method2)
+    assert_equal("a_class_method3", MyClass.a_class_method3)
+    assert_equal([:a_class_method, :a_class_method2, :a_class_method3], MyClass.singleton_methods)
+  end
 end
