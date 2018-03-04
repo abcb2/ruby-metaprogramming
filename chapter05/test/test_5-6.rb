@@ -34,3 +34,24 @@ class TestSample < Minitest::Test
   end
 
 end
+
+module Kernel
+  # アラウンドエイリアス
+  # 1. メソッドにエイリアスをつける
+  # 2. メソッドを再定義する
+  # 3. 新しいメソッドから古いメソッドを呼び出す
+  alias_method :require_without_record, :require
+  def require(file)
+    $requires << file if caller[1] =~ /rake2thor:/
+    require_without_record file
+  end
+end
+
+class TestSample2 < Minitest::Test
+  def setup
+  end
+
+  def test_01
+
+  end
+end
