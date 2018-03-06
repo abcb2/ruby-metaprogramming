@@ -6,3 +6,4 @@ rubyメタプログラミング学習
 - [3章](./chapter03/README.md)
 - [4章](./chapter04/README.md)
 - [5章](./chapter05/README.md)
+- [6章](./chapter06/README.md)
