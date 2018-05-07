@@ -17,6 +17,10 @@ module My
   end
 end
 
+class Hogehoge < My::Klass
+
+end
+
 k = My::Klass.new
 puts k.method1 # 1
 5.times do
@@ -24,3 +28,7 @@ puts k.method1 # 1
 end
 
 puts My::Klass.check # 6
+
+h = Hogehoge.new
+puts My::Klass.check # 7
+puts Hogehoge.check # 7 クラス変数を共有してしまっている
