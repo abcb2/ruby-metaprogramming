@@ -32,10 +32,24 @@ puts "=" * 20
 
 
 class Hoge
+  def foo
+    :foo
+  end
+
   class << self
     def hoge
-
+      :hoge
     end
   end
 end
+class << Hoge
+  def hogemoge
+    :hogemoge
+  end
+end
+puts "B2: #{Hoge::hogemoge}"
 
+obj = Hoge.new
+puts "B3: #{obj.class.method_defined? :foo}"
+puts "B4: #{obj.class.method_defined? :hoge}"
+puts "B5: #{obj.singleton_class.methods(false) == [:hoge, :hogemoge]}"
