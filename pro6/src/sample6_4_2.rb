@@ -39,8 +39,64 @@ class Foo
   def hello
     :hello_by_foo
   end
+
+  def method_missing(method, *args)
+    puts "C3: oops -> #{method} #{args}"
+  end
 end
 
 obj3 = Foo.new
 puts "C1: #{obj3.hello == :hello_by_module}"
 puts "C2: #{obj3.class.ancestors}"
+obj3.missing
+puts "*" * 20
+
+module HelloModule
+  def hello
+    :hello_module
+  end
+end
+
+class GrandParentClass
+  def hello
+    :grand_parent_hello
+  end
+end
+
+class ParentClass < GrandParentClass
+  include HelloModule
+end
+
+class ChildClass < ParentClass
+end
+
+child = ChildClass.new
+puts "D1: #{child.hello == :hello_module}"
+puts "D2: #{child.class.ancestors}"
+
+puts "*" * 20
+module Yes
+  def yes
+    :yes
+  end
+
+  def super_call(symbol = nil)
+    super(:by_module)
+  end
+end
+
+class MyYES
+  prepend Yes
+
+  def yes
+    :myyes
+  end
+
+  def super_call(symbol)
+    "#{:super_call}-#{symbol}"
+  end
+end
+
+myyes = MyYES.new
+puts "E1: #{myyes.yes == :yes}"
+puts "E2: #{myyes.super_call(nil) == 'super_call-by_module'}"
